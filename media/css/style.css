@@ -1,0 +1,338 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    /*background-color: blue;*/
+}
+#wrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: url(temas/tema9.jpg); background-repeat: no-repeat; background-size: cover;
+    /*background-color: rgba(0, 0, 0, 0.7);*/
+}
+li {
+    list-style: none;
+    list-style-position: inside;
+    text-align: justify;
+}
+table {
+    padding: 10px 0;
+    width: 100%;
+    height: 100px;
+    text-align: left;
+    border-bottom: 1px solid rgb(255, 255, 255); 
+    /*background-color:#813e7d4b;*/
+}
+td {
+    width: 50%;
+    padding: 5px 8px 0 0;
+}
+button{
+    font-size: 13px;
+    font-weight: bold;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+    width: 30%;
+    text-transform: uppercase;
+    background-color: aliceblue;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+    transition: 0.3s;
+    outline: none;
+}
+
+button:hover {
+    background-color: #2EE59D;
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+a:link, a:visited, a:active {
+    text-decoration: none;
+    color:black;
+}
+input {
+    margin: 0 10px 0 0;
+}
+/*
+************************************************************    N A V   B A R S     ************************************************************
+*/
+/*=======================   AREA   =======================*/
+#area-left,
+#area-right {
+    display: block;
+    position: fixed;
+    width: 100px;
+    height: 100%;
+    /*background: rgba(132, 169, 63, 0.3);*/
+}
+#area-left {
+    left: 0;
+}
+#area-right {
+    right: 0;
+}
+
+#area-left:hover #nav-left {
+    left: 0px;  
+}
+#area-right:hover #nav-right {
+    right: 0px;  
+}
+/*=======================   NAV   =======================*/
+#nav-left,
+#nav-right {
+    position: fixed;
+    width: 220px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    transition: 0.6s;
+}
+#nav-left {
+    left: -220px;
+}
+#nav-right {
+    right: -220px;
+}
+
+#nav-left ul,
+#nav-right ul {
+    position: absolute;
+    list-style: none;
+    width: 100%;
+    height: auto;
+    /*background-color: rgba(125, 25, 219, 0.3);*/
+}
+
+#nav-left ul li,
+#nav-right ul li {
+    /*background-color: rgba(60, 231, 22, 0.3);*/
+    padding: 5px 0 5px 15px;
+    color: #ffffff;
+    text-align: left;
+    font-size: 14px;
+}
+#nav-left ul h2,
+#nav-right ul h2 {
+    padding: 15px 0px 15px 15px;
+}
+#nav-left ul#index li {
+    border-bottom: 1px solid rgb(255, 255, 255); 
+}
+
+#nav-right ul#multimedia li {
+    border-bottom: 1px solid rgb(255, 255, 255); 
+}
+#nav-right ul#contacto {
+    /*position: absolute;*/
+    bottom: 0;
+}
+#nav-right ul#contacto h2 {
+    font-size:large;
+    border-top: 1px solid rgb(255, 255, 255); 
+}
+#nav-left ul a li:hover,
+#nav-right ul a li:hover {
+    font-weight: bold;
+    color: #4fafeb;
+}
+/*
+************************************************************    S E C T I O N  - D I V   ************************************************************
+*/
+/*==============================================   PORTADA   ==============================================*/
+#portada {
+    margin: 50px auto;
+    width: 90%;
+    min-width: 850px;
+}
+#logos {
+    text-align: center;
+    width:100%;
+    padding: 50px 10px 20px 10px;
+    }
+#logos img#logo_fi,
+#logos img#logo_unam {
+    height: 150px;
+    padding: 10px 100px;
+}
+#unam li,
+#temas li,
+#equipo li {
+    text-align:center;
+    font-size: 25px;
+    padding: 5px;
+    line-height:160%;
+}
+#temas li {
+    font-weight: bolder;
+}
+/*===================================================================================================================*/
+section {
+    margin: auto;
+    border: 0;
+    padding: 0 0 20px 0;
+    width: 45%;
+    height: auto;
+    text-align: center;
+    /*background-color: lightblue;*/
+}
+.title {
+    margin: 0;
+    padding: 60px 0 10px 0;
+    text-align: justify;
+    position: relative;
+    width: auto;  
+    font-size: 35px;
+    color: #4fafeb;
+    /*background-color: aqua;*/
+}
+.subtitle {
+    margin: 0;
+    padding: 30px 0 10px 0;
+    text-align: justify;
+    position: relative;
+    width: auto;
+    font-size: 20px;
+    color: #4fafeb;
+    /*background-color: aquamarine;*/
+}
+.text {
+    margin: 0;
+    padding: 10px 0 5px 0;
+    text-align: justify;
+    line-height: 25px;
+    position: relative;
+    width: auto;  
+    font-size: 16px;
+    color: #ffffff;
+    /*background-color: azure;*/
+}
+.imagen {
+    padding: 15px 0;
+    width: 100%;
+}
+.videox {
+    padding: 15px 0;
+}
+.pregunta {
+    padding: 20px 0;
+    text-align: justify;
+}
+#vid1,
+#vid2 {
+    width: 100%;
+}
+
+#temario ol,
+#introduccion ol,
+#algebra-booleana ol,
+#metodo-algebra ol,
+#mapa-k ol,
+#quine ol,
+#bibliografia,
+#ejemplos,
+#video {
+    padding: 5px 0;
+}
+
+#temario ol li{
+    list-style-type: decimal;
+    padding: 5px 0;
+    width: 100%;
+}
+
+#introduccion ol li{
+    list-style-type: decimal;
+    padding: 5px 0;
+}
+#introduccion ul li{
+    list-style-type:decimal;
+    padding: 5px 0 5px 20px;
+}
+
+#algebra-booleana ol li {
+    list-style-type: lower-latin;
+    padding: 5px 0 5px 20px;
+}
+
+#revisar {
+    align-items: center;
+}
+/*
+************************************************************    I F R A M E     ************************************************************
+*/
+#iframe {
+    height: 100%;
+    width: 100%;
+}
+iframe{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position:unset;
+    background-color:rgb(0, 0, 0, 0.7);
+}
+/*
+************************************************************    F O O T E R     ************************************************************
+*/
+#footer {
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+}
+#footer img{
+    width: 60px;
+    padding: 5px;
+}
+
+input[type='radio'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff0000; /* Cambia el color del borde aquí */
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+    position: relative;
+    margin-right: 10px;
+}
+
+input[type='radio']:checked {
+    border-color: #00ff00; /* Cambia el color del borde aquí */
+}
+
+input[type='radio']:hover {
+    border-color: #00ff00;
+}
+
+input[type='radio']:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #00ff00; /* Cambia el color del círculo aquí */
+    transition: transform 0.2s ease-in-out;
+}
+
+input[type='radio']:hover::before {
+    transform: translate(-50%, -50%) scale(0.5);
+}

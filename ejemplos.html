@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="Author" content="Romero Molina David"/><!--Autor-->
+
+    <script src="media/js/jq.js" type="text/javascript"></script>
+    <script src="media/js/m.js" type="text/javascript"></script>
+    <script src="media/js/ui.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="media/css/ui.css" type="text/css">
+</head>
+
+<body>
+<h1><font size="6"> <b> <br>3. Ejemplos </b> </font></h1> <br>
+<h2>
+    <div align="justify"><font size="3">
+        Realice los ejercicios que se presentan a continuación con el objetivo de evaluar su comprensión del tutorial.
+        Para verificar sus respuestas, haga clic en el botón "Solución".
+        Para ocultar las respuestas, simplemente haga clic nuevamente en el botón "Solución".
+    </font></div>
+</h2>
+</font> <br> <br> <br>
+<h3>
+    <p class="tag" align="justify"><font size="3">
+        1.-Encuentre cuáles de las siguientes secuencias de vértices son trayectorias simples, trayectorias,
+        trayectorias cerradas ( circuitos) y circuitos simples con respecto a la gráfica que se muestra en la
+        siguiente figura:<br>
+        <img src="Img/Im-Ejercicios/1.png" alt="">
+    </font></p>
+</h3>
+
+<h3>
+    <div id="1" style="display: none;"><font size="3">
+
+        <center>
+            <bold>a) A - D - E - B - C no es una trayectoria, ya que DE no es una arista de la gráfica dada.<br>
+                b) A - D - B - C - E es una trayectoria simple entre los vértices A y E, puesto que los vértices y las
+                aristas implicados son distintos.<br>
+                e) A - E - C - B - E - A es una trayectoria cerrada, en vista de que los vértices inicial y final son
+                los mismos y el vértice E aparece dos veces.<br>
+                d) C - B - D - A - E - Ces un circuito simple, ya ·que los vértices inicial y final son los mismos y los
+                vértices y las aristas son distintos.<br>
+                e) A -D - B - E - C - B es una trayectoria (pero no simple) puesto que el vértice B aparece dos
+                veces.<br>
+            </bold>
+        </center>
+        <br>
+    </font></div>
+</h3>
+<center><br>
+    <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+            onclick="if(document.getElementById('1').style.display=='none'){document.getElementById('1').style.display=''}else{document.getElementById('1').style.display='none'}; this.classList.toggle('active');"
+            title="Click to show/hide" type="button">Mostrar solución
+    </button>
+</center>
+<br>
+<br> <br>
+<h3>
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+    <p class="tag" align="justify"><font size="3">
+        2.-Encuentre todas las trayectorias simples de A a F y todos los circuitos en la gráfica dada en la siguiente
+        figura.
+        <br>
+    </font>
+        <img src="Img/Im-Ejercicios/2.png" alt="" width="450">
+    </p>
+</h3>
+<h3>
+    <div id="2" style="display: none;">
+        <p class="tag" align="justify"><font size="3">
+            Las trayectorias simples de A a F son las siguientes:<br>
+            1. A - B - C - F;<br>
+            2. A - D - E - F;<br>
+            3. A- B - D - E - F ;<br>
+            4. A - D - B - C - F;<br>
+            5. A - B - C-E - F; E<br>
+            6. A - D - E - C - F;<br>
+            7. A - B - D - E - C - F;<br>
+            8. A - D - B - C - E-F<br>
+            Los circuitos en la gráfica son los siguientes:<br>
+            1. A - B - D - A;<br>
+            2. C - F - E - C;<br>
+            3. B - C - E - D-B;<br>
+            4. A - B - C-E-D - A;<br>
+            5. B - C-F- E - D - B;<br>
+            6. A - B-C - F - E - D - A.<br>
+
+        </font>
+        </p>
+    </div>
+</h3>
+<center><br>
+    <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+            onclick="if(document.getElementById('2').style.display=='none'){document.getElementById('2').style.display=''}else{document.getElementById('2').style.display='none'}; this.classList.toggle('active');"
+            title="Click to show/hide" type="button">Mostrar solución
+    </button>
+</center>
+<br>
+<br> <br>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+<h3>
+    <p class="tag" align="justify"><font size="3">
+        3.-Determine todas las subgráficas conectadas de la gráfica que se muestra en la siguiente figura
+        que contiene todos los vértices de la gráfica original y que tiene el menor número de aristas posible.
+        ¿En estas subgráficas cuáles son trayectorias y cuáles son trayectorias simples de A a G?
+        <br>
+        <img src="Img/Im-Ejercicios/3.png" alt="" width="450">
+    </font></p>
+</h3>
+<h3>
+    <div id="3" style="display: none;">
+        <p class="tag" align="justify"><font size="3">
+            <br>
+            Las gráficas en las figuras 7.62a), 7.62b) y 7.62c) son las subgráficas conectadas requeridas.
+            Sin embargo, no hay componentes conectados de la gráfica original en la figura 7.62.
+            En la figura 7.62 a), A - B - F - E - D - G es una trayectoria simple de A a G, en tanto que A - B - F - C -
+            F - E - D - G
+            es una trayectoria de A a G En la figura 7.62 b), A - B - F - E - D - G es una trayectoria simple,
+            donde~ A - B - C - B - F - E - D - G es una trayectoria. En la figura 7.62 c), A - B - e -- F- E - D - G
+            es una trayectoria simple que contiene todos los vértices de la gráfica original. No hay trayectorias
+            cerradas y
+            circuitos en las subgráficas,
+            en tanto que éstos están presentes en la gráfica original.
+        </font></p>
+    </div>
+</h3>
+<center><br>
+    <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+            onclick="if(document.getElementById('3').style.display=='none'){document.getElementById('3').style.display=''}else{document.getElementById('3').style.display='none'}; this.classList.toggle('active');"
+            title="Click to show/hide" type="button">Mostrar solución
+    </button>
+</center>
+<br>
+<br> <br>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+<h3>
+    <p class="tag" align="justify"><font size="3">
+        4.- Encuentre analíticamente el número de trayectorias de longitud 4 desde el vértice D hasta el vértice E en
+        la gráfica no dirigida que se muestra en la figura 7.65. Identifique esas trayectorias a partir de las gráficas.
+        La matriz de adyacencia de la gráfica dada es:<br>
+        <br> </font>
+        <img src="Img/Im-Ejercicios/4.png" alt="" width="450">
+    </p>
+</h3>
+<h3>
+    <div id="4" style="display: none;">
+        <div align="justify">
+            <p style="color: white" class="tag" align="justify"><font size="3">
+                La entrada en la posición entre paréntesis (4 - 5)-ésima de A4 es 6. En consecuencia,
+                hay 6 trayectorias cada una de longitud 4 de D a E.
+                Aquellas 6 trayectorias identificadas a partir de las gráficas dadas son como sigue:<br>
+                1. D - A - D - C - E<br>
+                2. D - C - D - C - E<br>
+                3. D - A - B - C - E<br>
+                4. D - C - E - C - E<br>
+                5. D - C - E - B - E<br>
+                6. D - C - B - C - E<br>
+            </font>
+            </p>
+        </div>
+    </div>
+</h3>
+<center><br>
+    <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+            onclick="if(document.getElementById('4').style.display=='none'){document.getElementById('4').style.display=''}else{document.getElementById('4').style.display='none'}; this.classList.toggle('active');"
+            title="Click to show/hide" type="button">Mostrar solución
+    </button>
+</center>
+<br>
+<br> <br>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+<p class="tag" align="justify"><font size="3">
+    5.- Encuentre analíticamente el número de trayectorias de longitud 4 desde el vértice B hasta el vértice D
+    en la gráfica dirigida que se muestra en la figura 7.66.
+    Nombre esas trayectorias utilizando la gráfica. <br>
+    <img src="Img/Im-Ejercicios/5.png" alt="" width="200">
+</font>
+</p>
+<div id="5" style="display: none;">
+    <h3>
+        <div align="justify"><font size="3">
+            <br>
+            <img src="Img/Im-Ejercicios/5.1.png" alt="" width="350">
+            <br>
+            La entrada en la posición (BD) de A4 es 3. En consecuencia, hay 3 trayectorias cada una de longitud 4 de B a
+            D.<br>
+            Hay (1) B - C - B - C - D, (2) B - C - A - B - D y (3) B - D -A - B - D.
+        </font> <br> </div>
+    </h3>
+</div>
+</h3>
+<center><br>
+    <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+            onclick="if(document.getElementById('5').style.display=='none'){document.getElementById('5').style.display=''}else{document.getElementById('5').style.display='none'}; this.classList.toggle('active');"
+            title="Click to show/hide" type="button">Mostrar solución
+    </button>
+</center>
+<br>
+<br> <br>
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+<p class="tag" align="justify"><font size="3">
+    6.- Proporcione un ejemplo de una gráfica que contenga i) un circuito euleriano que es también un circuito
+    hamiltoniano
+    ii) un circuito euleriano y un circuito hamiltoniano que son distintos iii) un circuito euleriano, pero no un
+    circuito
+    hamiltoniano iv) un circuito hamiltoniano, pero no un circuito euleriano
+    v) ni un circuito euleriano ni un circuito hamiltoniano.<br>
+    <img src="Img/Im-Ejercicios/6.png" alt="" width="450"> </font>
+</p>
+<h3>
+    <div aling="justify " id="6" style="display: none;">
+        <font size="3">
+
+            <br>
+
+            i) El circuito A - B - C - D - A en G1 consta de todas las aristas y de todos los vértices, cada uno
+            exactamente una vez. G 1 contiene un circuito que es tanto euleriano como hamiltoniano.<br>
+            ii) G2 contiene e l circuito euleriano A - B - D - B - C - D - A yc circuito hamiltoniano A - B - C - D - A,
+            pero los dos circuitos son diferentes.<br>
+            iii) G3 contiene al circuito euleriano A - B - C - D - B - E - A, pero el circuito no es hamiltoniano, ya
+            que el vértice B se repite dos veces.<br>
+            iv) G4 contiene a l circuito hamiltoniano A - B - C - D - E - A. Sin embargo, no contiene un circuito
+            euleriano, ya que hay 4 vértices cada uno de grado 3.<br>
+            v) En G5 el grado de B y el grado de D son iguales a 3. En consecuencia, no hay un circuito de Euler en
+            ella. Además, ningún circuito pasa exactamente una vez a través de cada uno de los vértices.<br>
+
+        </font>
+    </div>
+    <center><br>
+        <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+                onclick="if(document.getElementById('6').style.display=='none'){document.getElementById('6').style.display=''}else{document.getElementById('6').style.display='none'}; this.classList.toggle('active');"
+                title="Click to show/hide" type="button">Mostrar solución
+        </button>
+    </center>
+    <br>
+    <br>
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+    <p class="tag" align="justify"><font size="3">
+        7.- Encuentre la matriz de la distancia más corta y la correspondiente matriz de la trayectoria más corta para
+        todos los pares de vértices en la gráfica no dirigida ilustrada en la figura 7.75, utilizando el algoritmo de
+        Warshall.
+        La matriz ponderada de la gráfica que se indica está dada por:<br>
+        <img src="Img/Im-Ejercicios/7.png" alt="" width="400">
+    </font></p>
+    <div id="7" style="display: none;">
+
+        <div align="center"><font size="3"></font></div>
+        La matriz de la distancia (longitud) inicial L0 se obtiene de W
+        sustituyendo cada uno de los O que no están en la diagonal por oo. De tal modo:
+        <img src="Img/Im-Ejercicios/7.1.png" alt="" width="350">
+        <img src="Img/Im-Ejercicios/7.2.png" alt="" width="350">
+        <img src="Img/Im-Ejercicios/7.3.png" alt="" width="350">
+    </div>
+    <center><br>
+        <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+                onclick="if(document.getElementById('7').style.display=='none'){document.getElementById('7').style.display=''}else{document.getElementById('7').style.display='none'}; this.classList.toggle('active');"
+                title="Click to show/hide" type="button">Mostrar solución
+        </button>
+    </center>
+    <br>
+    <br> <br>
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+    <h2>
+        <p class="tag" align="justify"><font size="3">
+            8.- Determine la matriz de distancia más corta y la correspondiente matriz de trayectoria más
+            corta para todos los pares de vértices en la gráfica ponderada dirigida que se presenta en la figura 7.76,
+            utilizando el algoritmo de Warshall. La matriz ponderada de la gráfica que se ilustra es:
+            <img src="Img/Im-Ejercicios/8.png" alt="" width="400"><br> </font>
+        </p>
+        <div id="8" style="display: none;">
+            <div align="center"></div>
+            <img src="Img/Im-Ejercicios/8.1.png" alt="" width="400">
+            <img src="Img/Im-Ejercicios/8.2.png" alt="" width="400">
+        </div>
+        <center><br>
+            <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+                    onclick="if(document.getElementById('8').style.display=='none'){document.getElementById('8').style.display=''}else{document.getElementById('8').style.display='none'}; this.classList.toggle('active');"
+                    title="Click to show/hide" type="button">Mostrar solución
+            </button>
+        </center>
+    </h2>
+    <br>
+    <br> <br>
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+    <p class="tag" align="justify"><font size="3">
+        9.- Encuentre una trayectoria hamiltoniana o un circuito hamiltoniano,
+        si éstos existen en cada una de las 3 gráficas de la figura 7.72.
+        Si éstos no existen, explique por qué.
+        <br>
+        <img src="Img/Im-Ejercicios/9.png" alt="" width="400"> <br>
+    </font></p>
+
+    <div id="9" style="display: none;">
+        <h3><font size="3">
+            <div align="justify">
+                G1 contiene un circuito hamiltoniano, por ejemplo, A - B - C - D - E - F - A. De hecho, hay 5 circuitos
+                hamiltonianos más en G1,
+                a saber, A - B - C- F - E - D - A, A - B - E - D - e - F - A, A - B - E - F - e - D - A, A - D - e - B -
+                E - F - A y A - D - E - B - C - F - A. <br>
+                G2 no contiene ni una trayectoria hamiltoniana ni un circuito hamiltoniano, ya que ninguna trayectoria
+                que contenga todos los vértices debe contener una de las aristas A - B y E - F más de una vez. G3
+                contiene 2 trayectorias hamiltonianas de C a E y de D a E, a saber,
+                C - B - D - A - E y D - B - C - A - E, pero ningún circuito hamiltoniano. <br>
+            </div>
+        </font></h3>
+    </div>
+</h3>
+<center><br>
+    <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+            onclick="if(document.getElementById('9').style.display=='none'){document.getElementById('9').style.display=''}else{document.getElementById('9').style.display='none'}; this.classList.toggle('active');"
+            title="Click to show/hide" type="button">Mostrar solución
+    </button>
+</center>
+<br>
+<br> <br>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+<h3>
+    <p class="tag" align="justify"><font size="3">
+        10.- Emplee el algoritmo de Dijkstra para encontrar la trayectoria más corta entre los vértices A y H en la
+        gráfica ponderada que se ilustra en la figura 7.74.
+        <img src="Img/Im-Ejercicios/10.png" alt="" width="450"> <br></font>
+    </p>
+</h3>
+<h3>
+    <div id="10" style="display: none;">
+        <img src="Img/Im-Ejercicios/10.1.png" alt="" width="450"><br>
+        <h3><font size="3">
+            <div align="justify">
+                Puesto que H se alcanza desde C, C se alcanza desde By B se alcanza a partir de A, la trayectoria más
+                corta es A - B - C - H.
+                Longitud de la trayectoria más corta = w(AB) + w(BC) + w(CH) = 2 + 2 + 1 = 5.
+            </div>
+        </font></h3>
+    </div>
+</h3>
+</p>
+</div>
+</h3>
+<center><br>
+    <button style="padding: 8px 16px; background: linear-gradient(to bottom, #4CAF50, #2E8B57); color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); transition: all 0.2s ease-in-out;"
+            onclick="if(document.getElementById('10').style.display=='none'){document.getElementById('10').style.display=''}else{document.getElementById('10').style.display='none'}; this.classList.toggle('active');"
+            title="Click to show/hide" type="button">Mostrar solución
+    </button>
+</center>
+<br>
+<br> <br>
+</body>
+</html>

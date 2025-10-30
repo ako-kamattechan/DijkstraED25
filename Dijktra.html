@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="Author" content="Romero Molina David"/><!--Autor-->
+    <!--Autor-->
+
+    <!-- Título de tu proyecto -->
+    <title>Teoría de gráficas</title>
+
+    <meta name="Description" content="Estudio General del Sistema"/><!--Descripción del tutorial-->
+    <meta name="Keywords" content="Factores, Estudio, General, Sistema"/><!--Palabras clave-->
+    <meta name="robots" content="noindex, nofollow"/>
+
+    <script src="media/js/jq.js" type="text/javascript"></script>
+    <script src="media/js/m.js" type="text/javascript"></script>
+    <script src="media/js/ui.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="media/css/ui.css" type="text/css"/>
+
+</head>
+
+<body>
+
+<section>
+    <!-- incio de info-->
+
+    <h1><font size="6"> <b> <br></b> </font></h1>
+
+    <h2 style="color:red; font-size: 28px;">2.3 Algoritmo de Dijktra’s</h2>
+
+    <h2 style="font-size: 23px;">
+        <div align="justify">
+            Supóngase que se está planteando un viaje en coche desde alguna ciudad hasta otra, por ejemplo, desde cdmx
+            hasta puebla. Empleando un mapa de carretas se encontrarán diferentes maneras de llegar a una respuesta. En
+            este caso se podria utilizar el algoritmo de Floyd, que está basado en la representacion matricial de un
+            grafo. Dado que este problema implica un grafo ponderado en el cual los costes de las aristas son las
+            distancias entre dos ciudades, las busquedas en amplitud y la busqueda en profundidad no son utilizables
+            directamente, porque esas aproximaciones suponen que todos las aristas del grafo tienen un coste de 1.
+            <br>
+            <br>
+            Esta subsección examina un algoritmo, atribuido a Dijkstra, para hallar la longitud del camino de coste de
+            minio entre dos vértices. Se supone que un grafo dado contiene n nodos v1, v2, …, vn y que es necesario
+            hallar la longitud del camino de coste mínimo desde v1 hasta vn. Aun cuando se desea el camino más corto
+            desde un nodo hasta otro, resulta útil (y eficiente) generar las longitudes de los caminos mínimos desde v1
+            hasta todos los demás nodos del grafo. Se asocia un campo de distancia a cada uno de los nodos del grafo. Al
+            comenzar, se selecciona el nodo inicial v1 y se da el valor cero a la distancia más corta desde ese nodo
+            hasta sí mismo.
+            <br>
+            <br>
+
+            El enfoque consiste en hallar el nodo que se encuentra más próximo a vn. A continuación se busca el nodo que
+            esté inmediatamente mas proximo a v1, y así sucesivamente. Eventualmente, el nodo vn será el siguiente en
+            distancias a v1, y en este momento se habrá hallado la longitud del camino mínimo. A medida que se van
+            hallando nodos sucesivamente más alejado de v1, se van colocando en un conjunto S y se ignoran en el sentido
+            de que se ha hallado su distancia mínima a v1. En cualquier fase dada, Dist [v1] es la distancia mínima de
+            un camino que va desde v1 hasta vj para aquellos nodos que estén en S.
+            <br>
+            <br>
+            Como ejemplo de este enfoque, considérese el digrafo ponderado de la figura 7.43. Al hallar las distancias
+            más cortas desde v1 hasta otros nodos del grafo, se actualiza el vector de distancia actual Dist cada vez
+            que se selecciona un nuevo elemento y se coloca en S. Durante la k-ésima iteración, supongase que S, denota
+            el conjunto de nodos más próximos seleccionados hasta esa iteración, y que uk denota el nodo siguiente en
+            proximidad. Las distancias más cortas recalculadas para todos los nodos que no están en Sk y son adyacentes
+            a uk se obtiene mediante el siguiente fragmento de programa:
+            <br>
+            <br>
+
+            <img src="Img/2.png"/><br/>
+    </h2>
+    </font> <br/> <br/>
+
+
+    <h2 style="font-size: 23px;">
+        <div align="justify">
+            A cada interacción, antes de hallar el nodo siguiente en proximidad, el vector de distancia actual contendrá
+            la distancia más corta entre v1 y todos los nodos del grafo, siempre y cuando todos los nodos intermedios de
+            todos los caminos se hayan seleccionando dentro de S. Observe que la distancia actual hasta uk desde v1
+            sigue siendo la misma(esto es, la distancia más corta desde v1).
+            <br>
+            Esta observación sigue siendo cierta para todos los nodos que no sean adyacentes a uk. Si no hay ningún
+            camino desde v1 hasta un cierto nodo que tenga esta propiedad, entonces se da el valor INF a la distancia
+            actual de este ultimo nodo. Inicialmente, se hace Dist [v1] = 0, Dist [v2] = 3, Dist [v3] = 6 y Dist [vi] =
+            INF para todos los demás nodos, y S = {vi}.
+            <br>
+            <img src="Img/3.png"/><br/>
+
+            En la primera interacción se selecciona el nodo siguiente en proximidad con respecto al nodo v1. El nodo más
+            próximo a v1 es v2, y por tanto se pone v2 en S. A continuación se calcula la distancia más corta de todos
+            los nodos adyacentes a v2 y que no estén en S. El nuevo cálculo de longitudes desde v2 hasta v3, v4 y v5
+            produce, respectivamente, los valores 8, 4 y 6. Esto completa la primera interacción que se resume en la
+            segunda fila de la figura 7.44. Las distancias actualizadas van entre paréntesis.
+            <br>
+            <br>
+
+            Durante la segunda interacción se busca el nodo segundo en proximidad con respecto al nodo v1. Hay tres
+            nodos adyacentes a v2: v3, v4 y v5. Por tanto se selecciona el nodo v4 como segundo nodo en proximidad a v1,
+            y se pone en S. Se vuelven a calcular las distancias actualizadas por los nodos adyacentes a v4 y que no
+            están en S. El nuevo cálculo de las distancias a v3 y v5 produce los valores de 5 y 8, respectivamente.
+            En la tercera iteración, los nodos v3 y v5 son adyacentes a v4, y v3, es el más próximo. Por lo tanto, el
+            próximo nodo que se seleccione es v3. Los nodos v5 y v6 son adyacentes a v3, y el nuevo cálculo de sus
+            distancias produce, respectivamente, los valores 7 y 11. La distancia 11 es la distancia mínima actual a v6;
+            sin embargo, la distancia 5 no es la distancia mínima a v5 y por tanto se mantiene la distancia mínima igual
+            a 6.
+            <br>
+            <br>
+
+            Las dos iteraciones siguientes seleccionan sucesivamente a v5 y v6. La última iteración produce una
+            distancia más corta entre v1 y v6 cuyo valor es 9.
+            El enfoque anterior se ha formalizado en el procedimiento que se dan en la imagen anterior. Observe que
+            algunas de las
+            sentencias del procedimiento no son sentencias validas sintácticamente en Pascal. La otra forma exacta de
+            estas estructuras depende de la forma en que esté representada la estructura del grafo, esto es, dependen de
+            si utilizan una matriz ponderada de adyacencias o bien un directorio de tablas de nodos con listas de
+            adyacencia. Este asunto se examinará de nuevo en breve.
+            <br>
+            <img src="Img/4.png"/><br/>
+
+            A continuación se considera brevemente el análisis temporal en caso peor del algoritmo de Dijkstra. Puede
+            ser necesario ejecutar el paso 5 para un máximo de n - 1 nodos, puesto que el nodo inicialmente seleccionado
+            es Comienzo. Considérese ahora la ejecución de las sentencias if presentes en los pasos 6 y 8, que son
+            rótulos de los dos bucles internos del bucle principal del paso 5. Si se utiliza una representación de
+            matriz de adyacencia, entonces el caso peor puede necesitar n -1 ejecuciones de las sentencias if. Por lo
+            tanto, el análisis temporal del algoritmo en el caso peor es O(n^2). Sin embargo, en el caso medio u puede
+            ser igual a buscar en el bucle repeat…unitl mucho antes de que sea necesario efectuar las n - 1 iteraciones
+            máximas. Por otra parte, si se emplean listas de adyacencia para representar el grafo y el número de aristas
+            del grafo es mucho menor de n^2 (esto es, si el grafo es disperso), digamos con m = O (n) donde m denota el
+            número de aristas, entonces suponiendo que se almacene la matriz de costes, el algoritmo puede ser bastante
+            mejor que O(n^2).<br>
+            El algoritmo considerado busca la distancia más corta de un nodo a otro. Se puede emplear un enfoque similar
+            al utilizado en el algoritmo de Floyd dado anteriormente para hallar los nodos del camino más corto. Con
+            este objeto, se puede guardar en cada iteración el índice del nodo predecesor dentro del camino más corto
+            hasta el nodo siguiente en proximidad que se coloca en S. Esta información se puede obtener modificado el
+            paso 8 de la tercera figura. Cuando se produce una disminución de la distancia actual porque hay una arista
+            que
+            va desde el nodo u hasta el nodo i, hasta con registrar el nodo u como predecesor. Eventualmente, cuando el
+            nodo final entre en S, se puede retroceder hasta el nodo especificado. Comienzo empleando la información
+            relativa a los nodos predecesores.
+            <img src="Img/5.png"/><br/>
+            Igualmente se podría considerar una serie de pasos para determinar la longitud de la trayectoria más corta
+            entre
+            dos vertices, esta serie de pasos se puede ver en la imagen anterior.
+            </ul>
+            <!-- FIN de info-->
+</section>
+
+</body>
+
+</html>
