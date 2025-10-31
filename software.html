@@ -1,35 +1,49 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <title>Algoritmo de Dijkstra</title>
 <style>
+  :root {
+    --drawer-width: 400px;
+    --drawer-bg: #0f1424;
+  }
   body {
     margin: 0;
-    background-image: url('suhahibi1.jpg');
-    background-size: cover;       /* para que la waifu cubra a toda pantalla */
-    background-position: center;  /* centers the image */
-    background-repeat: no-repeat; /* avoids tiling */
+    background: #0b0f1a;
+    color: #d1d5db;
     font-family: sans-serif;
-    display: flex;
     height: 100vh;
     overflow: hidden;
   }
   #canvas {
-    flex: 1;
-      background-image: url('a.jpg');
-      background-size: cover;       /* makes the image fill the screen */
-      background-position: center;  /* centers the image */
-      background-repeat: no-repeat; /* avoids tiling */
+    display: block;
+    background-image: url('a.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     cursor: crosshair;
   }
+
+  /* Distances table */
   #sidebar {
-    width: 250px;
-    background: #0f1424;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: var(--drawer-width);
+    background: var(--drawer-bg);
     border-left: 1px solid #1f2740;
     padding: 10px;
     box-sizing: border-box;
+    overflow-y: auto;
+    transform: translateX(0%);
+    transition: transform 0.28s ease;
+    will-change: transform;
+    z-index: 20;
   }
+  #sidebar.open { transform: translateX(0%); }
+
   select, button {
     background: transparent;
     color: #ff4f4f;
@@ -38,21 +52,35 @@
     padding: 4px 8px;
     margin-bottom: 8px;
   }
-  table {
-    width: 100%;
-    font-size: 12px;
-    border-collapse: collapse;
+  table { width: 100%; font-size: 12px; border-collapse: collapse; }
+  th, td { border-bottom: 1px solid #1f2740; padding: 4px; text-align: left; }
+
+  /* CSS for compatibility, but incomplete */
+  #toggleSidebar {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 30;
+    background: #1f2740;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
   }
-  th, td {
-    border-bottom: 1px solid #1f2740;
-    padding: 4px;
-    text-align: left;
-  }
+
 </style>
 </head>
 <body>
+
+<!-- Incomplete but used compatibility-->
+<button id="toggleSidebar" hidden>Si lees esto, juega subahibi</button>
+
+
+
 <canvas id="canvas"></canvas>
-<div id="sidebar">
+
+<div id="sidebar" class="open" aria-hidden="false">
   <div>
     <label>Inicio:</label>
     <select id="source"></select>
@@ -64,20 +92,68 @@
   </table>
   <p style="font-size:11px;color:#9ca3af;margin-top:8px;">
     Click para añadir nodos. Arrastra desde un nodo para crear una conexión. Doble click en una arista para cambiar su valor.<br>
-    Deja presionado shift para entrar en el modo de eliminación.
+    Mantén presionado Shift para eliminar nodos/aristas.
   </p>
 </div>
 
 <script>
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-let W = window.innerWidth - 250, H = window.innerHeight;
-canvas.width = W; canvas.height = H;
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleSidebar');
+
+let drawerOpen = false;
+
+
+
+let W = 0, H = 0;
+
+function sidebarWidth() {
+  /* Obtain width to avoid bug with tracking */
+  const cs = getComputedStyle(sidebar);
+  return parseInt(cs.width, 10) || 0;
+}
+
+
+/* Incomplete code, used for compatibility */
+function resizeCanvas() {
+  const sw = drawerOpen ? sidebarWidth() : 0;
+  canvas.width = Math.max(0, window.innerWidth - sw);
+  canvas.height = window.innerHeight;
+  W = canvas.width; H = canvas.height;
+  draw();
+}
+
+
+
+
+/* Force synchronization to avoid tracking before the page loads */
+window.addEventListener('load', () => {
+  sidebar.getBoundingClientRect();           
+  requestAnimationFrame(() => resizeCanvas()); 
+});
+window.addEventListener('resize', resizeCanvas);
+
+sidebar.addEventListener('transitionend', (e) => {
+  if (e.propertyName === 'transform') resizeCanvas();
+});
+
+
+/* I didn't implement this because of time */
+toggleBtn.onclick = () => {
+  drawerOpen = !drawerOpen;
+  sidebar.classList.toggle('open', drawerOpen);
+  toggleBtn.textContent = drawerOpen ? ' ' : ' ';
+  sidebar.setAttribute('aria-hidden', (!drawerOpen).toString());
+
+  resizeCanvas();
+};
+
+/* Dijkstra Algorithm */
 
 let ctrl = false;
-window.addEventListener('keydown', e => { if (e.key === 'Control') ctrl = true; });
-window.addEventListener('keyup', e => { if (e.key === 'Control') ctrl = false; });
-
+window.addEventListener('keydown', e => { if (e.key === 'Control') ctrl = true; if (e.key === 'Shift') shift = true; });
+window.addEventListener('keyup',   e => { if (e.key === 'Control') ctrl = false; if (e.key === 'Shift') shift = false; });
 
 const nodes = [];
 const edges = [];
@@ -90,13 +166,13 @@ const sourceSelect = document.getElementById('source');
 const resultBody = document.querySelector('#result tbody');
 const resetBtn = document.getElementById('reset');
 resetBtn.onclick = resetAll;
-window.addEventListener('keydown', e => { if (e.key === 'Shift') shift = true; });
-window.addEventListener('keyup', e => { if (e.key === 'Shift') shift = false; });
 
 canvas.addEventListener('click', e => {
   const x = e.offsetX, y = e.offsetY;
   if (shift) return;
   if (overNode(x, y) || overEdge(x, y)) return;
+  if (nodes.length >= 12) { alert("Solo se permiten hasta 12 nodos."); return; }
+
   const name = nextName();
   nodes.push({ id: name, x, y });
   if (nodes.length === 1) sourceId = name;
@@ -110,34 +186,15 @@ canvas.addEventListener('mousedown', e => {
   const x = e.offsetX, y = e.offsetY;
   const n = getNode(x, y);
 
-  if (ctrl && n) {            // CTRL → mover nodo
-    draggingNode = n;
-    return;
-  }
-  if (!ctrl && n) {           
-    linking = { from: n.id, x, y };
-  }
+  if (ctrl && n) { draggingNode = n; return; }
+  if (!ctrl && n) { linking = { from: n.id, x, y }; }
 });
-
 canvas.addEventListener('mousemove', e => {
-  if (linking) {
-    linking.x = e.offsetX;
-    linking.y = e.offsetY;
-    draw();
-  }
-  if (draggingNode) {
-    draggingNode.x = e.offsetX;
-    draggingNode.y = e.offsetY;
-    draw();
-  }
+  if (linking) { linking.x = e.offsetX; linking.y = e.offsetY; draw(); }
+  if (draggingNode) { draggingNode.x = e.offsetX; draggingNode.y = e.offsetY; draw(); }
 });
-
 canvas.addEventListener('mouseup', e => {
-  if (draggingNode) {         // dejar de mover el nodo
-    draggingNode = null;
-    draw();
-    return;
-  }
+  if (draggingNode) { draggingNode = null; draw(); return; }
   if (!linking) return;
   const n2 = getNode(e.offsetX, e.offsetY);
   if (n2 && n2.id !== linking.from) {
@@ -147,15 +204,13 @@ canvas.addEventListener('mouseup', e => {
     );
     if (!exists) edges.push({ a: linking.from, b: n2.id, w: 1 });
   }
-  linking = null;
-  draw();
+  linking = null; draw();
 });
-
 
 canvas.addEventListener('dblclick', e => {
   const eHit = getEdge(e.offsetX, e.offsetY);
   if (eHit) {
-    const val = prompt('Edge weight:', eHit.w);
+    const val = prompt('Peso de la arista:', eHit.w);
     if (val !== null && !isNaN(+val)) eHit.w = +val;
     draw();
   }
@@ -170,20 +225,13 @@ canvas.addEventListener('click', e => {
     for (let i = edges.length - 1; i >= 0; i--) {
       if (edges[i].a === n.id || edges[i].b === n.id) edges.splice(i, 1);
     }
-    draw();
-    updateSourceList();
-    return;
+    draw(); updateSourceList(); return;
   }
   const ed = getEdge(e.offsetX, e.offsetY);
-  if (ed) {
-    edges.splice(edges.indexOf(ed), 1);
-    draw();
-  }
+  if (ed) { edges.splice(edges.indexOf(ed), 1); draw(); }
 });
 
-function getNode(x, y) {
-  return nodes.find(n => (x - n.x)**2 + (y - n.y)**2 <= radius**2);
-}
+function getNode(x, y) { return nodes.find(n => (x - n.x)**2 + (y - n.y)**2 <= radius**2); }
 function overNode(x, y) { return !!getNode(x, y); }
 function getEdge(x, y) {
   for (const e of edges) {
@@ -192,8 +240,7 @@ function getEdge(x, y) {
     if (!n1 || !n2) continue;
     const d = pointLineDist({x, y}, n1, n2);
     if (d < 6) return e;
-  }
-  return null;
+  } return null;
 }
 function overEdge(x, y) { return !!getEdge(x, y); }
 
@@ -203,11 +250,7 @@ function nextName() {
   return 'x' + (nodes.length + 1);
 }
 
-function resetAll() {
-  nodes.length = 0; edges.length = 0; sourceId = null;
-  updateSourceList();
-  draw();
-}
+function resetAll() { nodes.length = 0; edges.length = 0; sourceId = null; updateSourceList(); draw(); }
 
 function updateSourceList() {
   sourceSelect.innerHTML = '';
@@ -252,17 +295,12 @@ function runDijkstra() {
   resultBody.innerHTML = rows;
 }
 
-function buildPath(prev, t) {
-  const p = [];
-  let cur = t;
-  while (cur) { p.unshift(cur); cur = prev[cur]; }
-  return p;
-}
+function buildPath(prev, t) { const p = []; let cur = t; while (cur) { p.unshift(cur); cur = prev[cur]; } return p; }
 
 function draw() {
   ctx.clearRect(0, 0, W, H);
   ctx.lineWidth = 2;
-  // aristas
+
   for (const e of edges) {
     const n1 = nodes.find(n => n.id === e.a);
     const n2 = nodes.find(n => n.id === e.b);
@@ -272,7 +310,6 @@ function draw() {
     ctx.moveTo(n1.x, n1.y);
     ctx.lineTo(n2.x, n2.y);
     ctx.stroke();
-    // peso de las aristas
     const mx = (n1.x + n2.x)/2, my = (n1.y + n2.y)/2;
     ctx.fillStyle = "#a78bfa";
     ctx.fillRect(mx - 12, my - 8, 24, 16);
@@ -280,7 +317,7 @@ function draw() {
     ctx.font = "12px sans-serif";
     ctx.fillText(e.w, mx - 4, my + 4);
   }
-  // previsualizar conexión
+
   if (linking) {
     const from = nodes.find(n => n.id === linking.from);
     if (from) {
@@ -293,7 +330,7 @@ function draw() {
       ctx.setLineDash([]);
     }
   }
-  // nodos
+
   for (const n of nodes) {
     ctx.fillStyle = "#171d34";
     ctx.strokeStyle = "#2a3358";
@@ -304,19 +341,18 @@ function draw() {
     ctx.fillStyle = (n.id === sourceId) ? "#a78bfa" : "#d1d5db";
     ctx.fillText(n.id, n.x - 4, n.y + 4);
   }
+
   runDijkstra();
 }
 
 function pointLineDist(p, a, b) {
   const A = p.x - a.x, B = p.y - a.y, C = b.x - a.x, D = b.y - a.y;
-  const dot = A*C + B*D;
-  const len2 = C*C + D*D;
+  const dot = A*C + B*D, len2 = C*C + D*D;
   let t = dot / len2;
   if (t < 0) t = 0; else if (t > 1) t = 1;
   const x = a.x + t*C, y = a.y + t*D;
   return Math.hypot(p.x - x, p.y - y);
 }
-draw();
 </script>
 </body>
 </html>
