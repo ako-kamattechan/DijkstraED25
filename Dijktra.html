@@ -33,30 +33,33 @@
 
     <h2 style="font-size: 23px;">
         <div align="justify">
-            Supóngase que se está planteando un viaje en coche desde alguna ciudad hasta otra, por ejemplo, desde cdmx
-            hasta puebla. Empleando un mapa de carretas se encontrarán diferentes maneras de llegar a una respuesta. En
-            este caso se podria utilizar el algoritmo de Floyd, que está basado en la representacion matricial de un
-            grafo. Dado que este problema implica un grafo ponderado en el cual los costes de las aristas son las
-            distancias entre dos ciudades, las busquedas en amplitud y la busqueda en profundidad no son utilizables
-            directamente, porque esas aproximaciones suponen que todos las aristas del grafo tienen un coste de 1.
+            Edsger Wybe Dijkstra creador del algoritmo de Dijkstra (11 de mayo de 1930 en Róterdam, Países Bajos - 6 de
+            agosto de 2002 en Nuenen, Países Bajos) mientras tomaba café con su novia (y futura esposa) Maria (Ria) C.
+            Debets. Estaban planeando un viaje por Europa y querían encontrar la ruta más corta entre ciudades. 
+            Diseñó la solución en 20 minutos sin lápiz ni papel. Mientras esperaban en una cafetería, Dijkstra resolvió
+            mentalmente el problema que había estado ponderando.
+
+            Insertar imagen 
+
+            Dijkstra publicó el algoritmo en 1959 en un artículo de solo dos páginas titulado:
+            "A note on two problems in connexion with graphs" (Una nota sobre dos problemas en conexión con grafos)
+            Se programó en el ARMAC, una de las primeras computadoras en los Países Bajos.
+
             <br>
             <br>
-            Esta subsección examina un algoritmo, atribuido a Dijkstra, para hallar la longitud del camino de coste de
-            minio entre dos vértices. Se supone que un grafo dado contiene n nodos v1, v2, …, vn y que es necesario
-            hallar la longitud del camino de coste mínimo desde v1 hasta vn. Aun cuando se desea el camino más corto
-            desde un nodo hasta otro, resulta útil (y eficiente) generar las longitudes de los caminos mínimos desde v1
-            hasta todos los demás nodos del grafo. Se asocia un campo de distancia a cada uno de los nodos del grafo. Al
-            comenzar, se selecciona el nodo inicial v1 y se da el valor cero a la distancia más corta desde ese nodo
-            hasta sí mismo.
+            El procedimiento desarrollado por Dijkstra para identificar trayectorias de costo mínimo en grafos. 
+            Partiendo de una estructura con n nodos (v₁, v₂, ..., vₙ), el propósito fundamental es establecer la distancia
+            más corta entre v₁ y vₙ. Sin embargo, la estrategia computa simultáneamente las distancias mínimas desde el
+            nodo origen hacia todos los vértices restantes. La implementación asigna a cada nodo un valor de distancia,
+            inicializando v₁ en cero (representando la nula distancia consigo mismo) y los demás en un valor que indica
+            distancia desconocida.
+
             <br>
             <br>
 
-            El enfoque consiste en hallar el nodo que se encuentra más próximo a vn. A continuación se busca el nodo que
-            esté inmediatamente mas proximo a v1, y así sucesivamente. Eventualmente, el nodo vn será el siguiente en
-            distancias a v1, y en este momento se habrá hallado la longitud del camino mínimo. A medida que se van
-            hallando nodos sucesivamente más alejado de v1, se van colocando en un conjunto S y se ignoran en el sentido
-            de que se ha hallado su distancia mínima a v1. En cualquier fase dada, Dist [v1] es la distancia mínima de
-            un camino que va desde v1 hasta vj para aquellos nodos que estén en S.
+           El método itera seleccionando en cada paso el nodo no procesado más cercano a v1, actualizando distancias y 
+            agregándolo al conjunto S de nodos resueltos. Cuando vn es incorporado a S, se ha encontrado la distancia mínima 
+            entre v1 y vn. En todo momento, la distancia almacena la menor distancia posible entre ambos nodos 
             <br>
             <br>
             Como ejemplo de este enfoque, considérese el digrafo ponderado de la figura 7.43. Al hallar las distancias
