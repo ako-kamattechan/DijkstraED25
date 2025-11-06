@@ -8,7 +8,7 @@
     <!--Autor-->
 
     <!-- Título de tu proyecto -->
-    <title>Teoría de gráficas</title>
+    <title>Teoría de gráficas: Dijkstra</title>
 
     <meta name="Description" content="Estudio General del Sistema"/><!--Descripción del tutorial-->
     <meta name="Keywords" content="Factores, Estudio, General, Sistema"/><!--Palabras clave-->
@@ -29,55 +29,43 @@
     <h1 style="font-size: 28px;"><b>2. Introducción</b></h1>
     <h2 style="color: red; font-size: 24px;">2.1 Aplicaciones de la teoría de grafos y árboles</h2>
     <div style="font-size: 23px;">
-        <p>Muchos problemas se modelan de forma natural mediante grafos y dígrafos, y las estructuras de datos que
-            implementan el grafo o el dígrafo ADT se utilizan habitualmente en informática. El tema de los algoritmos de
-            grafos es un campo de investigación muy activo en la actualidad. Los grafos y dígrafos también desempeñan un
-            papel importante en Internet y las redes de comunicación, transporte y flujo de mercancías, entre otras. La
-            estructura subyacente de estas redes se modela de forma natural utilizando un grafo o un dígrafo. Abundan
-            los ejemplos de grafos de redes. El sistema de autopistas interestatales puede modelarse mediante un grafo
-            en el que los nodos representan ciudades (o cruces) y las aristas, autopistas que unen las ciudades. La
-            World Wide Web puede modelarse mediante un grafo dirigido, en el que los nodos corresponden a páginas web y
-            existe una arista dirigida de la página web A a la página web B si la página web A incluye un hiperenlace.
-            Los grafos de la informática paralela sirven de modelo para las redes de interconexión. Y podemos utilizar
-            grafos para representar la estructura de superposición impuesta en Internet para una red entre iguales como
-            Gnutella .Además de sus aplicaciones en redes, los grafos y digrafos sirven como modelos naturales para
-            otras muchas aplicaciones. Por citar un ejemplo de la informática Por citar un ejemplo de la informática, el
-            flujo lógico de un programa informático escrito en un lenguaje de alto nivel es naturalmente modelado por un
-            dígrafo de programa (lowchart). Los compiladores de optimización utilizan varias propiedades de este
-            dígrafo, como componentes fuertemente conectados y coloreado de vértices, para ayudar a lograr el objetivo
-            de traducir el código de alto nivel en código máquina que muestre un rendimiento óptimo.</p>
-        <p>Sin embargo, dos problemas fundamentales para grafos ponderados con amplias aplicaciones son el problema del
-            árbol mínimo y el problema del camino más corto. El problema de encontrar un árbol mínimo en un grafo
-            ponderado es especialmente importante en aplicaciones de redes. Por ejemplo, el problema se plantea en el
-            diseño de cualquier red física que conecte n nodos, donde las conexiones entre nodos están sujetas a
-            restricciones de viabilidad y peso. Ejemplos de este tipo de redes físicas son las redes de comunicación,
-            las redes de transporte, los conductos de energía y los chips VLSI, entre otros. En todos estos ejemplos, el
-            peso de un árbol mínimo proporciona un límite inferior al coste de construcción de la red. La búsqueda de
-            los caminos más cortos en grafos y dígrafos ponderados también tiene innumerables aplicaciones en redes de
-            diversos tipos. Por ejemplo, en una red informática o de comunicaciones, los datos se transfieren de forma
-            más eficiente entre los nodos de la red a lo largo de un camino más corto entre los nodos, donde los pesos
-            de los nodos son los mismos y las aristas representan la latencia de la comunicación. Otro ejemplo es un
-            dígrafo que representa una red de vuelos de avión. El vuelo menos costoso (en términos de dinero. distancia
-            o tiempo) de un aeropuerto a otro en la red es el camino directo más corto desde el aeropuerto de salida al
-            aeropuerto de llegada, donde los pesos de las aristas son los costes apropiados. En este capítulo se
-            analizará un solo algoritmo para resolver el árbol del camino más corto, en este caso, el algoritmo de
-            Dijkstra.</p>
+        <p>La teoría de grafos constituye una de las herramientas más versátiles en el campo de la informática y las ciencias aplicadas. 
+            Numerosos problemas del mundo real pueden representarse de manera natural mediante grafos o dígrafos, lo que permite analizarlos 
+            a través de algoritmos especializados. Actualmente, el estudio de los algoritmos basados en grafos es un área de investigación 
+            muy activa, debido a su utilidad en la representación y optimización de redes complejas.</p>
+        <p>En el ámbito tecnológico, los grafos se utilizan para modelar sistemas de comunicación, redes de transporte, distribución 
+            de recursos y estructuras de datos. Por ejemplo, un sistema de carreteras puede representarse mediante un grafo donde los vértices 
+            son las ciudades y las aristas las autopistas que las conectan. De manera similar, la World Wide Web puede entenderse como un grafo 
+            dirigido, en el que cada página web se relaciona con otras a través de hipervínculos. También, en la informática paralela, los grafos
+            permiten modelar redes de interconexión entre procesadores, y en redes de igual a igual, describen las conexiones lógicas entre usuarios.</p>
+        <p>Además de su papel en las redes, los grafos encuentran aplicaciones en áreas como la programación y la optimización. El flujo lógico de un 
+            programa puede representarse mediante un dígrafo, lo que facilita el análisis y la mejora del código mediante técnicas como el coloreo de 
+            vértices o la identificación de componentes fuertemente conexas.</p>
+        <p>Entre los problemas más importantes que involucran grafos ponderados se destacan el <b>árbol de expansión mínima</b> y el <b>camino más corto</b>.
+            El primero se aplica en el diseño eficiente de redes físicas —como sistemas de energía, telecomunicaciones o transporte— buscando minimizar los 
+            costos de conexión entre nodos. El segundo, el problema del camino más corto, tiene una relevancia aún mayor en la optimización de rutas y flujos 
+            de información. Por ejemplo, en una red de comunicación, encontrar la ruta más rápida entre dos nodos mejora el rendimiento global; o en una 
+            red de vuelos, permite determinar el trayecto más económico o rápido entre aeropuertos.</p>
+        <p>En este capítulo se abordará específicamente el <b>algoritmo de Dijkstra</b>, una de las soluciones más eficientes para determinar el camino 
+            más corto en un grafo ponderado. Este algoritmo no solo tiene aplicaciones teóricas, sino que también es la base de muchos sistemas de 
+            navegación, planificación de rutas y gestión de redes modernas.</p>
     </div>
     <h1 style="color: red; font-size: 28px;">2.2 Árbol mínimo de expansión</h1>
     <div style="font-size: 23px;">
-        <p>Dado un árbol de expansión T en un grafo G con una ponderación w de las aristas E, el peso de T, denotado
-            peso(T), es la suma de los pesos w de sus aristas. Si T tiene un peso mínimo sobre todos los árboles de
-            expansión de G, entonces llamamos a 1 árbol de expansión mínima. En la figura l2.1 se enumeran todos los
-            árboles de expansión de un grafo ponderado de cuatro vértices. El árbol de expansión mínimo se obtiene por
-            inspección. El número de árboles de expansión, incluso para grafos relativamente pequeños, suele ser enorme,
-            lo que hace inviable una búsqueda enumerativa por fuerza bruta. De hecho, Cayley demostró que el grafo
-            completo K, con n vértices, contiene:</p>
+        <p>Consideremos un árbol de expansión <b>T</b> dentro de un grafo <b>G</b> cuyas aristas <b>E</b> poseen una ponderación <b>w</b>. 
+            El <b>peso</b> de dicho árbol, representado como <i>peso(T)</i>, se define como la suma total de los valores de las aristas que 
+            lo componen. Cuando este peso es el menor posible entre todos los árboles de expansión de <b>G</b>, el árbol se denomina <b>árbol 
+            de expansión mínima</b>. En la figura de ejemplo se muestran todos los árboles de expansión de un grafo ponderado con cuatro vértices, 
+            donde el árbol mínimo puede identificarse visualmente. No obstante, el número de posibles árboles de expansión crece de forma 
+            exponencial incluso en grafos pequeños, por lo que realizar una búsqueda exhaustiva resulta impracticable. De hecho, 
+            el matemático <b>Cayley</b> demostró que un grafo completo <b>K<sub>n</sub></b> con <b>n</b> vértices contiene:
+ </p>
         <img src="Img/1.png"/>
-        <p>Afortunadamente, existen algoritmos eficientes basados en el método codicioso para encontrar árboles mínimos.
-            En esta sección se tratará el problema de determinar la trayectoria más corta entre dos vértices
-            cualesquiera en una gráfica ponderada. Se disponen de muchos algoritmos para determinar la trayectoria más
-            corta en una gráfica ponderada. Se estudiará un solo algoritmo el cual fue descubierto por Edsger
-            Dijkstra</p>
+        <p>Afortunadamente, existen algoritmos eficientes que emplean el <b>método voraz (greedy)</b> para hallar árboles de expansión mínima. 
+            En esta sección, sin embargo, nos centraremos en un problema estrechamente relacionado: encontrar el <b>camino más corto</b> entre 
+            dos vértices cualesquiera de un grafo ponderado. Existen diversas estrategias para resolver este tipo de problemas, pero una de las
+            más reconocidas y utilizadas es el <b>Algoritmo de Dijkstra</b>, propuesto por <b>Edsger Dijkstra</b>, el cual se estudiará en detalle 
+            a continuación. </p>
     </div>
     <!-- FIN de info -->
 </section>
