@@ -145,7 +145,7 @@
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
 <h3>
     <p class="tag" align="justify"><font size="3">
-        4.- Encuentre analíticamente el número de trayectorias de longitud 4 desde el vértice D hasta el vértice E en
+        IV. Encuentre analíticamente el número de trayectorias de longitud 4 desde el vértice D hasta el vértice E en
         la gráfica no dirigida que se muestra en la figura 7.65. Identifique esas trayectorias a partir de las gráficas.
         La matriz de adyacencia de la gráfica dada es:<br>
         <br> </font>
@@ -181,7 +181,7 @@
 
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
 <p class="tag" align="justify"><font size="3">
-    5.- Encuentre analíticamente el número de trayectorias de longitud 4 desde el vértice B hasta el vértice D
+    V. Encuentre analíticamente el número de trayectorias de longitud 4 desde el vértice B hasta el vértice D
     en la gráfica dirigida que se muestra en la figura 7.66.
     Nombre esas trayectorias utilizando la gráfica. <br>
     <img src="Img/Im-Ejercicios/5.png" alt="" width="200">
@@ -212,7 +212,7 @@
 
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
 <p class="tag" align="justify"><font size="3">
-    6.- Proporcione un ejemplo de una gráfica que contenga i) un circuito euleriano que es también un circuito
+    VI. Proporcione un ejemplo de una gráfica que contenga i) un circuito euleriano que es también un circuito
     hamiltoniano
     ii) un circuito euleriano y un circuito hamiltoniano que son distintos iii) un circuito euleriano, pero no un
     circuito
@@ -250,7 +250,7 @@
 
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
     <p class="tag" align="justify"><font size="3">
-        7.- Encuentre la matriz de la distancia más corta y la correspondiente matriz de la trayectoria más corta para
+        VII. Encuentre la matriz de la distancia más corta y la correspondiente matriz de la trayectoria más corta para
         todos los pares de vértices en la gráfica no dirigida ilustrada en la figura 7.75, utilizando el algoritmo de
         Warshall.
         La matriz ponderada de la gráfica que se indica está dada por:<br>
@@ -276,7 +276,7 @@
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
     <h2>
         <p class="tag" align="justify"><font size="3">
-            8.- Determine la matriz de distancia más corta y la correspondiente matriz de trayectoria más
+            VIII. Determine la matriz de distancia más corta y la correspondiente matriz de trayectoria más
             corta para todos los pares de vértices en la gráfica ponderada dirigida que se presenta en la figura 7.76,
             utilizando el algoritmo de Warshall. La matriz ponderada de la gráfica que se ilustra es:
             <img src="Img/Im-Ejercicios/8.png" alt="" width="400"><br> </font>
@@ -297,7 +297,7 @@
     <br> <br>
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
     <p class="tag" align="justify"><font size="3">
-        9.- Encuentre una trayectoria hamiltoniana o un circuito hamiltoniano,
+        IX. Encuentre una trayectoria hamiltoniana o un circuito hamiltoniano,
         si éstos existen en cada una de las 3 gráficas de la figura 7.72.
         Si éstos no existen, explique por qué.
         <br>
@@ -330,8 +330,10 @@
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
 <h3>
     <p class="tag" align="justify"><font size="3">
-        10.- Emplee el algoritmo de Dijkstra para encontrar la trayectoria más corta entre los vértices A y H en la
-        gráfica ponderada que se ilustra en la figura 7.74.
+        X.Para la gráfica no dirigida determine:
+        a) Las subgráficas conexas que contienen todos los vértices con el menor número de aristas
+        b) En esas subgráficas, identifique cuáles son trayectorias y trayectorias simples de 1 a 8
+        c) ¿Cuál es el diámetro de cada subgráfica encontrada?
         <img src="Img/Im-Ejercicios/10.png" alt="" width="450"> <br></font>
     </p>
 </h3>
@@ -340,9 +342,21 @@
         <img src="Img/Im-Ejercicios/10.1.png" alt="" width="450"><br>
         <h3><font size="3">
             <div align="justify">
-                Puesto que H se alcanza desde C, C se alcanza desde By B se alcanza a partir de A, la trayectoria más
-                corta es A - B - C - H.
-                Longitud de la trayectoria más corta = w(AB) + w(BC) + w(CH) = 2 + 2 + 1 = 5.
+                a) Subgráficas conexas con todos vértices y mínimo de aristas:
+                Árboles generadores:
+
+                {1-2, 2-3, 3-5, 5-4, 4-1, 4-6, 6-7, 7-8} (8 aristas)
+
+                {1-2, 2-3, 3-5, 5-8, 8-7, 7-6, 6-4, 4-1} (8 aristas)
+                Mínimo: 7 aristas (8 vértices → árbol generador tiene n-1=7 aristas)
+
+                b) Trayectorias de 1 a 8 en subgráfica mínima:
+                Ejemplo: 1-4-6-7-8 (trayectoria simple)
+                1-2-3-5-8 (trayectoria simple)
+                1-4-5-8 (trayectoria simple)
+
+                c) Diámetro:
+                Máxima distancia mínima entre cualquier par de vértices = 4 (ej: 1 a 8 vía 1-4-6-7-8)
             </div>
         </font></h3>
     </div>
