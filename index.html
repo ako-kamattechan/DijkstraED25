@@ -1,241 +1,141 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-MX">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="Author" content="Romero Molina David"/><!--Autor-->
-    <!--Autor-->
+    <meta charset="UTF-8">
 
-    <!-- Título de tu proyecto -->
-    <title>Teoría de gráficas</title>
+    <title>Índice</title>
 
-    <meta name="Description" content="Estudio General del Sistema"/>
-    <!--Descripción del tutorial-->
-    <meta name="Keywords" content="Factores, Estudio, General, Sistema"/>
-    <!--Palabras clave-->
-    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        :root {
+            --sidebar-bg: #1b1b1b;
+            --accent: #f8d26a;
+        }
 
-    <script src="media/js/jq.js" type="text/javascript"></script>
-    <script src="media/js/m.js" type="text/javascript"></script>
-    <script src="media/js/ui.js" type="text/javascript"></script>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="stylesheet" href="media/css/ui.css"/>
-    <link rel="icon" href="Img/Grafo.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        body {
+            margin: 0;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            color: #e9ecff;
+            font-family: Helvetica, sans-serif;
+            font-size: 1.4rem;
+        }
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#a1").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='portada.html'></iframe>"
-                );
-            });
-            $("#a2").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='temario.html'></iframe>"
-                );
-            });
-            $("#a3").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='objetivo.html'></iframe>"
-                );
-            });
-            $("#a4").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='introduccion.html'></iframe>"
-                );
-            });
-            $("#a5").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='Dijktra.html'></iframe>"
-                );
-            });
-            $("#a7").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='ejemplos.html'></iframe>"
-                );
-            });
-            $("#a8").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='video.html'></iframe>"
-                );
-            });
-            $("#a9").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='Cuestionario.html'></iframe>"
-                );
-            });
-            $("#a10").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='software.html'></iframe>"
-                );
-            });
-            $("#a11").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='software_02.html'></iframe>"
-                );
-            });
-            $("#a12").click(function () {
-                $("iframe#contents").replaceWith(
-                    "<iframe id='contents' src='Bibliografia.html'></iframe>"
-                );
-            });
-        });
-    </script>
+        /* Repurposed sidebar as footer v */
+        #sidebar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3em;
+            background: rgba(5, 5, 5, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: auto;
+            user-select: none;
+            z-index: 5;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Create a pseudo-element in order to create a glowing effect */
+
+        #sidebar::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 25px 4px var(--accent);
+            opacity: 0.5;
+            pointer-events: none;
+            border-radius: 100%;
+        }
+
+        #sidebar ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            gap: 16px;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar ul a {
+            text-decoration: none;
+            color: #e3e3e3;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, background 0.25s ease, color 0.25s ease;
+            white-space: nowrap;
+            letter-spacing: 0.025em;
+
+        }
+
+        #sidebar ul a:hover {
+            background: rgba(255, 255, 79, 0.15);
+            color: #fff;
+            transform: scale(1.15);
+        }
+        
+        #main {
+            flex: 1;
+            height: 100vh;
+            background: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 3em;
+        }
+
+        iframe {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+    </style>
 </head>
 
 <body>
-<div id="wrapper">
-    <nav id="nav-left">
-        <!-- Inicio: Índice de temas del tutorial -->
-        <ul id="index">
-            <h2>Índice</h2>
-            <a id="a1" href="#"
-            >
-                <li><span>Portada</span></li>
-            </a
-            >
-            <a id="a2" href="#"
-            >
-                <li><span>Temario</span></li>
-            </a
-            >
-            <a id="a3" href="#"
-            >
-                <li><span>Objetivo</span></li>
-            </a
-            >
-            <a id="a4" href="#"
-            >
-                <li><span>Introducción</span></li>
-            </a
-            >
-            <a id="a5" href="#"
-            >
-                <li><span>Dijktra</span></li>
-            </a
-            >
-            <a id="a7" href="#"
-            >
-                <li><span>Ejemplos</span></li>
-            </a
-            >
-            <a id="a8" href="#"
-            >
-                <li><span>Video</span></li>
-            </a
-            >
-            <a id="a9" href="#"
-            >
-                <li><span>Cuestionario</span></li>
-            </a
-            >
-            <a id="a10" href="#"
-            >
-                <li><span>Software 01</span></li>
-            </a
-            >
-            <a id="a11" href="#"
-            >
-                <li><span>Software 02</span></li>
-            </a
-            >
-            <a id="a12" href="#"
-            >
-                <li><span>Bibliografía</span></li>
-            </a
-            >
-        </ul>
-        <!-- Final: Indice de temas del tutorial -->
 
-        <ul id="themes">
-            <h2>Temas</h2>
-            <li id="nlt-theme1"></li>
-            <li id="nlt-theme2"></li>
-            <li id="nlt-theme3"></li>
-            <li id="nlt-theme4"></li>
-            <li id="nlt-theme5"></li>
-            <li id="nlt-theme6"></li>
-            <li id="nlt-theme7"></li>
-            <li id="nlt-theme8"></li>
-            <li id="nlt-theme9"></li>
-        </ul>
-    </nav>
+<nav id="sidebar">
+    <ul>
+        <a href="#" data-src="portada.html">Portada</a>
+        <a href="#" data-src="temario.html">Temario</a>
+        <a href="#" data-src="objetivo.html">Objetivo</a>
+        <a href="#" data-src="introduccion.html">Introducción</a>
+        <a href="#" data-src="Dijktra.html">Dijkstra</a>
+        <a href="#" data-src="ejemplos.html">Ejemplos</a>
+        <a href="#" data-src="video.html">Video</a>
+        <a href="#" data-src="Cuestionario.html">Cuestionario</a>
+        <a href="#" data-src="project/software_svg.html">Software 01</a>
+        <a href="#" data-src="Bibliografia.html">Bibliografía</a>
+    </ul>
+</nav>
 
-<!--
-    <nav id="nav-right">
-        <!-- Inicio: Archivos de audio -->
-        <ul id="audio">
-            <h2>Audio</h2>
-            <li>
-                <span>Introducción:</span>
-                <!-- Controladores default de audio (opcional) -->
-                <audio controls>
-                    <source src="media/vid/audio.m4a" type="audio/mpeg"/>   <!-- PENDIENTE-->
-                </audio>
-            </li>
-        </ul>
-        <!-- Final: Archivos de audio -->
+<main id="main">
+    <iframe id="content" src="portada.html"></iframe>
+</main>
 
-        <!-- Inicio: Archivos descargables -->
-        <ul id="files">
-            <h2>Respuestas del cuestionario</h2>
-            <li>
-                <a href="media/css/Recursos/Respuestas.pdf" target="_blank"> <!-- PENDIENTE-->
-                    Respuestas
-                </a>
-            </li>
-        </ul>
-        <ul id="files2">
-            <h2>Algoritmo de Dijkstra</h2>
-            <li>
-                <a href="media/css/Recursos/Algoritmo_de_Dijkstra.pdf" target="_blank"> <!-- PENDIENTE-->
-                    Archivo
-                </a>
-            </li>
-        </ul>
-        <ul id="files3">
-            <h2>Vertices y Aristas de apoyo</h2>
-            <li>
-                <a href="media/css/Recursos/Vertices_Aristas.pdf" target="_blank"> <!-- PENDIENTE-->
-                    Ejemplo
-                </a>
-            </li>
-        </ul>
-        <!-- Final: Archivos descargables -->
+<script>
+    /* Index navigation logic */
+    const links = document.querySelectorAll('#sidebar a');
+    const iframe = document.getElementById('content');
 
-        <!-- Inicio:
-        <ul id="contact">
-            <h2>Contacto del autor de la página</h2>
-            <li><span>© Romero Molina David </span></li>
-            <li><span>
-                <a href="mailto:aydropunk@tutamail.com"><img src="https://raw.githubusercontent.com/AydroPunk/AydroPunk/main/src/social/gmail.svg" alt="tutanota"></a>
-            </span>
-              <a href="https://github.com/AydroPunk"><img src="https://raw.githubusercontent.com/AydroPunk/AydroPunk/7f8c6058a4d69c263d0ca1d492b95aee9f60c228/src/social/git_hub.svg" alt="Github"></a>
-              <a href="https://www.linkedin.com/in/aydropunk/"><img src="https://raw.githubusercontent.com/AydroPunk/AydroPunk/c0be059e6b37edf7ee4ab5d39e686ab8b7b8b31d/src/social/linkedin.svg" alt="linkedin"/></a>
-            </span></li>
-        </ul>
-        <!-- Final: Contacto -->
-    </nav>
--->
- Contacto -->
+    links.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const src = link.dataset.src;
+            iframe.src = src;
+        });
+    });
 
-    <div id="nav-left-trigger"></div>
-    <div id="nav-right-trigger"></div>
-
-    <div id="theme" class="theme9">
-        <!-- Inicio: iFrame que contiene las secciones -->
-        <iframe id="contents" src="portada.html"></iframe>
-        <!-- Final: iFrame que contiene las secciones -->
-    </div>
-
-    <!--Inicio: Pie de página-->
-    <footer id="footer">
-        <img id="logo_unam" src="media/css/img/logo_unam.png"/>
-        <img id="logo_fi" src="media/css/img/logo_fi.png"/>
-    </footer>
-    <!--Fin: Pie de página-->
-</div>
-<!--Final: wrapper-->
+</script>
 </body>
 </html>

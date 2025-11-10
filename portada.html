@@ -1,52 +1,177 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="es-MX">
 <head>
+  <meta charset="UTF-8">
+  <title>Portada</title>
+  <style>
+    :root {
+      --accent: #f8d26a;
+      --text: #e5e5e5;
+      --subtext: #c0c0c0;
+      --bg1: #1e1e1e;
+      --bg2: #000000;
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="Author" content="Romero Molina David"/><!--Autor-->
+      /* Grid debugging variables */
+      --grid-size: 40px;
+      --grid-alpha: 0.22;
+      --grid-speed: 36s;
+      --grid-shift: 48px;
+    }
 
-    <!-- Título de tu proyecto -->
-    <title>Teoría de gráficas</title>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <meta name="Description" content="Estudio General del Sistema"/><!--Descripción del tutorial-->
-    <meta name="Keywords" content="Factores, Estudio, General, Sistema"/><!--Palabras clave-->
-    <meta name="robots" content="noindex, nofollow"/>
+    body {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: var(--text);
+      background: linear-gradient(to bottom, var(--bg1), var(--bg2));
+      font-family: Helvetica, Arial, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
 
-    <script src="media/js/jq.js" type="text/javascript"></script>
-    <script src="media/js/m.js" type="text/javascript"></script>
-    <script src="media/js/ui.js" type="text/javascript"></script>
+    /* Grid background, it's wasn't supposed to pulsate */
+    /* It also doesn't loop correctly, fix it if you like, but it's a pain */
 
-    <link rel="stylesheet" href="media/css/ui.css" type="text/css"/>
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 1px;
+      background-image:
+              linear-gradient(45deg, rgb(255 255 255 / var(--grid-alpha)) 1px, transparent 1px),
+              linear-gradient(-45deg, rgb(255 255 255 / var(--grid-alpha)) 1px, transparent 1px);
+      background-size: var(--grid-size) var(--grid-size);
+      animation: gridShift var(--grid-speed) linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    <!-- El siguiente CSS puede utilizarse para hacer los ajustes necesarios de los contenidos -->
-    <link rel="stylesheet" href="media/css/portada.css" type="text/css"/>
+    @keyframes gridShift {
+      from { transform: translate(0, 0); }
+      to   { transform: translate(var(--grid-shift), var(--grid-shift)); }
+    }
 
+    /* Radial overlay (placebo?) */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 45%,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.3) 100%);
+      opacity: 0.6;
+    }
+
+
+
+    main {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 10%;
+      max-width: 1920px;
+      animation: fadeIn 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* no you go change the values individually */
+    body::before { z-index: 0; }
+    body::after  { z-index: 3; }
+    main         { position: relative; z-index: 2; }
+
+
+    h1 {
+      font-size: 3.5rem;
+      color: var(--accent);
+      margin-bottom: 0.4em;
+      letter-spacing: 0.05em;
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 0.2em;
+      letter-spacing: 0.1em;
+    }
+
+    .section {
+      letter-spacing: 0.1em;
+      margin-bottom: 1.8em;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .section p {
+      color: var(--subtext);
+      font-size: 2rem;
+      margin: 4px 0;
+      text-align: center;
+    }
+
+    .members p {
+      color: #c1c1c1;
+      margin: 2px 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.015em;
+    }
+
+    .align-box {
+      width: 100%;
+      margin-left: auto;
+      padding: 0 4em 0;
+      text-align: left;
+      border: none;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+  </style>
 </head>
-
 <body>
 
-<section id="portada">
-    <div id="logos">
-        <img id="logounam" src="media/css/img/logo_unam.png">
-        <img id="logofi" src="media/css/img/logo_fi.png">
+<main>
+  <h1> Universidad Nacional Autónoma de México </h1>
+  <h2> Facultad de Ingeniería </h2>
+  <h2> Ingeniería en Computación </h2>
+  <br>
+
+  <div class="section">
+    <p> Estructuras Discretas </p>
+    <p> Grupo 05 </p>
+    <p> Ing. Orlando Zaldívar Zamorategui </p>
+  </div>
+
+  <div class="section">
+    <p> Teoría de gráficas </p>
+    <p> Aplicación de la teoría de grafos y árboles: <em>El algoritmo de Dijkstra</em> </p>
+  </div>
+
+  <div class="section members">
+    <div class="align-box">
+      <p>Kraschinski Alexander</p>
+      <p>Gasperin Reyes Efraín</p>
+      <p>Morales Bernabé Johan Octavio</p>
+      <p>Mosqueda Becerra David</p>
     </div>
-    <ul id="listaPortada">
-        <li><b>Universidad Nacional Autónoma de México </b></li>
-        <br>
-        <li> Facultad de Ingeniería</li>
-        <li>Ingeniería en Computación </a></li>
-        <li> Estructuras Discretas</li>
-        <li>Grupo 06 </a></li>
-        <li>Ing. Orlando Zaldívar Zamorategui</li>
-        <li><b> <br> Teoría de gráficas</b></li>
-        <li>Aplicación de la teoría de grafos y árboles: El algoritmo de Dijkstra</li>
-        <li><b> Romero Molina David</b></li>
-        <li><br> 2023-2</li>
-    </ul>
-</section>
+  </div>
+
+  <div class="section">
+    <p> 2026-1 </p>
+  </div>
+</main>
 
 </body>
-
 </html>

@@ -1,75 +1,151 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-MX">
 
+<link rel="stylesheet" href="project/theme.css" />
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="Author" content="Romero Molina David"/><!--Autor-->
-    <!--Autor-->
+    <title>Introducción</title>
 
-    <!-- Título de tu proyecto -->
-    <title>Teoría de gráficas: Dijkstra</title>
 
-    <meta name="Description" content="Estudio General del Sistema"/><!--Descripción del tutorial-->
-    <meta name="Keywords" content="Factores, Estudio, General, Sistema"/><!--Palabras clave-->
-    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        html,body {
+            margin:0;
+            padding:0;
+            color:#e5e7eb;
+            font:16px/1.6 sans-serif;
 
-    <script src="media/js/jq.js" type="text/javascript"></script>
-    <script src="media/js/m.js" type="text/javascript"></script>
-    <script src="media/js/ui.js" type="text/javascript"></script>
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
 
-    <link rel="stylesheet" href="media/css/ui.css" type="text/css"/>
+        main {
+            max-width: 920px;
+            margin: 48px auto;
+            padding: 0 24px;
+        }
 
+        h1, h2, h3 {
+            line-height: 1.25;
+            margin: 0 0 16px
+        }
+
+        h1 {
+            font-size: 1.8rem
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            margin-top: 32px;
+            border-left: 4px solid #efe644;
+            padding-left: 10px
+        }
+
+        p {
+            margin: 0 0 12px
+        }
+
+        ol {
+            margin: 0 0 16px 20px
+        }
+
+        li {
+            margin: 6px 0
+        }
+
+        .meta {
+            color: #9ca3af;
+            font-size: .95rem
+        }
+
+        .ref {
+            padding: 16px;
+            border-radius: 12px
+        }
+
+        code, kbd {
+            background: #111827;
+            padding: 2px 6px;
+            border-radius: 6px
+        }
+
+        .small {
+            font-size: .95rem;
+            color: rgb(250, 138, 138);
+        }
+
+        a {
+            color: #fca5a5;
+            text-decoration: none
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        .section {
+            margin-top: 28px
+        }
+    </style>
 </head>
-
 <body>
+<main>
 
-<section>
-    <!-- inicio de info -->
-    <h1 style="font-size: 28px;"><b>2. Introducción</b></h1>
-    <h2 style="color: red; font-size: 24px;">2.1 Aplicaciones de la teoría de grafos y árboles</h2>
-    <div style="font-size: 23px;">
-        <p>La teoría de grafos constituye una de las herramientas más versátiles en el campo de la informática y las ciencias aplicadas. 
-            Numerosos problemas del mundo real pueden representarse de manera natural mediante grafos o dígrafos, lo que permite analizarlos 
-            a través de algoritmos especializados. Actualmente, el estudio de los algoritmos basados en grafos es un área de investigación 
-            muy activa, debido a su utilidad en la representación y optimización de redes complejas.</p>
-        <p>En el ámbito tecnológico, los grafos se utilizan para modelar sistemas de comunicación, redes de transporte, distribución 
-            de recursos y estructuras de datos. Por ejemplo, un sistema de carreteras puede representarse mediante un grafo donde los vértices 
-            son las ciudades y las aristas las autopistas que las conectan. De manera similar, la World Wide Web puede entenderse como un grafo 
-            dirigido, en el que cada página web se relaciona con otras a través de hipervínculos. También, en la informática paralela, los grafos
-            permiten modelar redes de interconexión entre procesadores, y en redes de igual a igual, describen las conexiones lógicas entre usuarios.</p>
-        <p>Además de su papel en las redes, los grafos encuentran aplicaciones en áreas como la programación y la optimización. El flujo lógico de un 
-            programa puede representarse mediante un dígrafo, lo que facilita el análisis y la mejora del código mediante técnicas como el coloreo de 
-            vértices o la identificación de componentes fuertemente conexas.</p>
-        <p>Entre los problemas más importantes que involucran grafos ponderados se destacan el <b>árbol de expansión mínima</b> y el <b>camino más corto</b>.
-            El primero se aplica en el diseño eficiente de redes físicas —como sistemas de energía, telecomunicaciones o transporte— buscando minimizar los 
-            costos de conexión entre nodos. El segundo, el problema del camino más corto, tiene una relevancia aún mayor en la optimización de rutas y flujos 
-            de información. Por ejemplo, en una red de comunicación, encontrar la ruta más rápida entre dos nodos mejora el rendimiento global; o en una 
-            red de vuelos, permite determinar el trayecto más económico o rápido entre aeropuertos.</p>
-        <p>En este capítulo se abordará específicamente el <b>algoritmo de Dijkstra</b>, una de las soluciones más eficientes para determinar el camino 
-            más corto en un grafo ponderado. Este algoritmo no solo tiene aplicaciones teóricas, sino que también es la base de muchos sistemas de 
-            navegación, planificación de rutas y gestión de redes modernas.</p>
-    </div>
-    <h1 style="color: red; font-size: 28px;">2.2 Árbol mínimo de expansión</h1>
-    <div style="font-size: 23px;">
-        <p>Consideremos un árbol de expansión <b>T</b> dentro de un grafo <b>G</b> cuyas aristas <b>E</b> poseen una ponderación <b>w</b>. 
-            El <b>peso</b> de dicho árbol, representado como <i>peso(T)</i>, se define como la suma total de los valores de las aristas que 
-            lo componen. Cuando este peso es el menor posible entre todos los árboles de expansión de <b>G</b>, el árbol se denomina <b>árbol 
-            de expansión mínima</b>. En la figura de ejemplo se muestran todos los árboles de expansión de un grafo ponderado con cuatro vértices, 
-            donde el árbol mínimo puede identificarse visualmente. No obstante, el número de posibles árboles de expansión crece de forma 
-            exponencial incluso en grafos pequeños, por lo que realizar una búsqueda exhaustiva resulta impracticable. De hecho, 
-            el matemático <b>Cayley</b> demostró que un grafo completo <b>K<sub>n</sub></b> con <b>n</b> vértices contiene:
- </p>
-        <img src="Img/1.png"/>
-        <p>Afortunadamente, existen algoritmos eficientes que emplean el <b>método voraz (greedy)</b> para hallar árboles de expansión mínima. 
-            En esta sección, sin embargo, nos centraremos en un problema estrechamente relacionado: encontrar el <b>camino más corto</b> entre 
-            dos vértices cualesquiera de un grafo ponderado. Existen diversas estrategias para resolver este tipo de problemas, pero una de las
-            más reconocidas y utilizadas es el <b>Algoritmo de Dijkstra</b>, propuesto por <b>Edsger Dijkstra</b>, el cual se estudiará en detalle 
-            a continuación. </p>
-    </div>
-    <!-- FIN de info -->
-</section>
+    <h1>2. Introducción</h1>
 
+    <section class="section" id="apps">
+        <h2>2.1 Teoría de grafos y representación de sistemas</h2>
+
+        <ol>
+            <li>Todo sistema puede representarse como un conjunto de entidades y relaciones.</li>
+            <li>En informática, estas relaciones se modelan mediante <strong>grafos</strong>, estructuras G = (V, E) formadas por vértices y aristas.</li>
+            <li>Cada arista puede asociarse a un <strong>peso</strong> que cuantifica costo, distancia o tiempo de transmisión.</li>
+            <li>Un grafo ponderado permite analizar problemas de optimización en redes de transporte, comunicación o datos.</li>
+            <li>La <strong>teoría de grafos</strong> provee el marco formal para estudiar tales estructuras y los algoritmos que operan sobre ellas (Gutiérrez &amp; Zuleta, 2024, pp. 9–15).</li>
+
+            <li>En redes informáticas, los grafos modelan topologías físicas y lógicas: routers, enlaces y latencias.</li>
+            <li>En compiladores, describen flujos de control y dependencias entre bloques de código.</li>
+            <li>En ingeniería de software, expresan relaciones de componentes, dependencias o jerarquías.</li>
+            <li>Estas representaciones permiten aplicar técnicas algorítmicas que reducen complejidad, costo o redundancia.</li>
+
+            <li>Dos problemas centrales emergen de esta abstracción:
+                <br> a) el <strong>árbol de expansión mínima (MST)</strong>, que conecta todos los vértices minimizando el peso total, y
+                <br> b) el <strong>camino más corto (SPP)</strong>, que determina la ruta de menor costo entre pares de nodos (Gutiérrez &amp; Zuleta, 2024, pp. 104–117).
+            </li>
+            <li>Ambos constituyen la base para algoritmos de enrutamiento, planificación y optimización combinatoria (Jordán et al., 2022).</li>
+        </ol>
+    </section>
+
+    <embed src="project/software_svg.html" width="100%" height="600px" />
+
+    <section class="section" id="dijkstra">
+        <h2>2.2 El algoritmo de Dijkstra</h2>
+
+        <ol>
+            <li>El <strong>problema del camino más corto</strong> consiste en hallar, en un grafo ponderado con pesos no negativos, la distancia mínima desde un vértice origen "s" hacia todos los demás.</li>
+            <li>Edsger W. Dijkstra formuló en 1959 un procedimiento greedy que resuelve este problema en tiempo O(V^2) o O((V + E) log V) con estructuras de prioridad adecuadas.</li>
+            <li>El algoritmo parte de una asignación inicial de distancia infinita a todos los vértices excepto el origen, cuya distancia es 0.</li>
+            <li>En cada iteración, selecciona el vértice con la menor distancia provisional y actualiza sus vecinos mediante <strong>relajación</strong> de aristas.</li>
+            <li>El proceso se repite hasta que todas las distancias son definitivas (Gutiérrez &amp; Zuleta, 2024, p. 111).</li>
+
+            <li>La estructura de datos utilizada influye en la eficiencia:
+                <br>– con matriz de adyacencia, el tiempo es O(V^2).
+                <br>– con cola de prioridad binaria o Fibonacci, O((V + E) log V).
+            </li>
+            <li>Esta complejidad lo hace adecuado para grafos medianos o grandes donde los pesos son no negativos y la topología es relativamente estática.</li>
+
+            <li>Aplicaciones: enrutamiento (OSPF, IS-IS), planificación logística, SIG, y como caso base de algoritmos heurísticos como <strong>A*</strong>.</li>
+            <li>Por su generalidad, Dijkstra representa un razonamiento determinista: a partir de pesos locales, infiere una estructura global de mínimos.</li>
+            <li>Es un pilar de la computación algorítmica: la formalización matemática traduce sistemas complejos en decisiones óptimas reproducibles.</li>
+        </ol>
+    </section>
+
+    <section class="section" id="refs">
+        <h2>Bibliografía.</h2>
+        <div class="ref">
+            <p>Gutiérrez García, I., &amp; Zuleta Saldarriaga, Y. M. (2024). <em>Introducción a la teoría de grafos: conceptos, algoritmos y aplicaciones.</em> Universidad del Norte. (pp. 9–15, 104–117, 111).</p>
+            <p>Jordán Lluch, C., Murillo Arcila, M., &amp; Seoane Sepúlveda, J. B. (2022). <em>Teoría de grafos y modelización. Problemas resueltos.</em> Ediciones Paraninfo.</p>
+        </div>
+    </section>
+
+</main>
 </body>
-
 </html>
