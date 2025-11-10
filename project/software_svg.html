@@ -7,6 +7,7 @@
 </head>
 <body>
 
+
 <!-- App [Vector graphics -> Sidebar -> ] -->
 <!-- Sidebar [Controls [Buttons -> Speed ] ]-->
 <!-- App elements declaration; buttons are untested and visual glitches might be present -->
@@ -31,7 +32,7 @@
       <select id="sourceSelect" title="Origen"></select>
       <button id="resetBtn">Reiniciar</button>
       <button id="playBtn" class="primary">Animar</button>
-      <button id="stopBtn" disabled>Detener</button>
+      <button id="stopBtn" >Detener</button>
     </div>
 
     <div class="controls">
@@ -59,7 +60,7 @@
     <button class="help-btn" id="helpBtn">?</button>
 
     <label for="presetBox" class="visually-hidden">Preset JSON</label>
-    <textarea id="presetBox" class="preset" placeholder='Pegue/cargue un preset JSON { "nodes":[{"id":"A","x":320,"y":240},{"id":"B","x":760,"y":180}], "edges":[{"a":"A","b":"B","w":2}],  "sourceId":"A" }'></textarea>
+    <textarea id="presetBox" class="preset" placeholder='Pegue/cargue un preset JSON'></textarea>
     <p class="hint">Edición: clic para crear nodo · Ctrl+arrastrar para mover · Clic y arrastre entre nodos para arista · Doble clic en nodo/arista para editar · Shift+clic para eliminar.</p>
 
     <h2 style="margin-top:14px">Tabla de distancias</h2>
@@ -86,6 +87,9 @@
 <script src="utils.js"></script>
 
 <script>
+
+
+
 
   (function () {
     const $ = s => document.querySelector(s);
@@ -230,6 +234,7 @@
       S.nodes = [];
       S.edges = [];
       S.sourceId = null;
+      Utils.state.nextId = 0;
       Utils.recomputeAndRender();
       window.dispatchEvent(new CustomEvent('graph-changed'));
     };
@@ -314,6 +319,44 @@
         img.style.transform = 'scale(1)';
       });
     })();
+
+    /* Message Listener */
+    window.addEventListener("message", (ev) => {
+      const msg = ev.data;
+      if (!msg || !msg.type)
+        return;
+
+      switch (msg.type) {
+
+        case "INIT_GRAPH": {
+          const p = msg.payload;
+          if (!p) return;
+
+          S.nodes = (p.nodes || []).map(n => ({id:n.id, x:n.x, y:n.y}));
+          S.edges = (p.edges || []).map(e => ({a:e.a, b:e.b, w:e.w}));
+          S.sourceId = p.sourceId || null;
+          S.loop = !!p.loop;
+
+          Utils.recomputeAndRender();
+          window.dispatchEvent(new CustomEvent("graph-changed"));
+          break;
+        }
+
+        case "HIDE_UI": {
+          sidebarVisible = false;
+          sidebar.style.display = "none";
+          root.style.setProperty("--drawer-width","0px");
+          break;
+        }
+
+        case "START": {
+          if (!S.animating)
+            Utils.animateDijkstra(Number(speedSelect.value));
+          break;
+        }
+      }
+    });
+
 
     /* Initial paint */
     refresh();

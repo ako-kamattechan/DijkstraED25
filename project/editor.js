@@ -5,15 +5,18 @@
   const svgNS = "http://www.w3.org/2000/svg";
   const S = () => Utils.state;
 
-  let draggingNode = null, connectingFrom = null, tempLine = null;
+
+      let draggingNode = null, connectingFrom = null, tempLine = null;
 
   /* Helpers */
   const safeToSVG = (e) => {
     try { return Utils.ScreenToSVG(svg, e.clientX, e.clientY); }
     catch { return {x:0, y:0}; }
   };
-  const nodeAt = (x, y, tol=22) =>
-      (S().nodes||[]).find(n => Math.hypot(x-n.x,y-n.y)<tol);
+
+
+  /* XY Coordinates; Detection Radius */
+  const nodeAt = (x, y, Radius=NODE_HIT_RADIUS) => (S().nodes||[]).find(n => Math.hypot(x-n.x,y-n.y)<Radius);
 
   /* Mouse Logic */
   svg.addEventListener("mousedown",(e)=>{
@@ -30,7 +33,7 @@
 
     const st = S();
 
-    /* Delete; shift+click */
+    /* Delete; Shift+Click; Detection -Depends-> Radius */
     if (e.shiftKey) {
       const edgeHit = (() => {
         for (const ed of (st.edges||[])) {
@@ -40,7 +43,9 @@
 
           const d1 = Math.hypot(p.x - A.x, p.y - A.y);
           const d2 = Math.hypot(p.x - B.x, p.y - B.y);
-          if (d1<18 || d2<18) continue;
+
+          if (d1 < EDGE_ENDPOINT_SKIP || d2 < EDGE_ENDPOINT_SKIP) continue;
+
           const Ax = p.x - A.x, Ay = p.y - A.y, Bx = B.x - A.x, By = B.y - A.y;
           const dot = Ax*Bx + Ay*By, len2 = Bx*Bx + By*By;
           let t = dot/len2; t = Math.max(0, Math.min(1, t));
@@ -113,6 +118,19 @@
 
     /* Node creation */
     if (!n && !hitEdge) {
+
+        const badge = document.querySelector('.badge');
+        if (st.nodes.length >= Utils.state.maxNodes) {
+          badge.textContent = "Límite de nodos alcanzado";
+          badge.style.color = "#f88";
+          setTimeout(()=> {
+            badge.textContent = "ESC -> regresar";
+            badge.style.color = "var(--muted)";
+          }, 1400);
+          Utils.setHoverLock(false);
+          return;
+        }
+
         st.nodes = st.nodes || [];
         const id = Utils.uniqueId();
         st.nodes.push({ id, x: p.x, y: p.y });
@@ -184,7 +202,8 @@
 
     const p = safeToSVG(e);
     const st = S();
-    const n = (st.nodes || []).find(n => Math.hypot(p.x - n.x, p.y - n.y) < 18);
+
+    const n = (st.nodes || []).find(n => Math.hypot(p.x - n.x, p.y - n.y) < NODE_DELETE_RADIUS);
     if (!n)
       return;
 

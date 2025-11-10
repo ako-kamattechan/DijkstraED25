@@ -1,3 +1,11 @@
+
+/* App Parameters <-depend- (Hit Detection; Graphics Rendering) */
+const NODE_RADIUS = 50;
+const NODE_HIT_RADIUS = 58;
+const NODE_DELETE_RADIUS = 58;
+const EDGE_ENDPOINT_SKIP = 55;
+const EDGE_HIT_TOLERANCE = 6;
+
 window.Utils = (function(){
 
   /* State of the canvas (i.e, the values that correspond to the graph -> contains the attributes a preset must give */
@@ -16,6 +24,7 @@ window.Utils = (function(){
     svg: null,
     tableEl: null,
     nextId: 0,
+    maxNodes: 16,
   };
 
   /* Unique IDs are given to nodes to ensure they can be both connected and compatible with the animator */
@@ -108,10 +117,25 @@ window.Utils = (function(){
 
       state.svg.gEdges.appendChild(line);
 
-      /* Weight label */
-      const mx = (A.x + B.x)/2, my = (A.y + B.y)/2;
+      /* Weight label [Create Box -> Define Text -> Append Box to Text] */
+      /* mx, my -> Label XY Coordinates */
+      const mx = ((A.x + B.x) / 2)+1;
+      const my = ((A.y + B.y) / 2)+13;
+
+      /* Background box */
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bg.setAttribute('x', mx - 14);
+      bg.setAttribute('y', my - 25);
+      bg.setAttribute('width', 28);
+      bg.setAttribute('height', 20);
+      bg.setAttribute('rx', 4);
+      bg.setAttribute('class', 'edge-label-bg');
+      state.svg.gEdgeLabels.appendChild(bg);
+
+      /* Text */
       const t = document.createElementNS('http://www.w3.org/2000/svg','text');
-      t.setAttribute('x', mx); t.setAttribute('y', my - 6);
+      t.setAttribute('x', mx);
+      t.setAttribute('y', my - 6);
       t.setAttribute('text-anchor','middle');
       t.setAttribute('class','edge-label');
       t.dataset.edge = `${u}-${v}`;
@@ -131,6 +155,14 @@ window.Utils = (function(){
       });
 
       state.svg.gEdgeLabels.appendChild(t);
+
+      /* Dynamic Size */
+      const bb = t.getBBox();
+      bg.setAttribute('x', bb.x - 6);
+      bg.setAttribute('y', bb.y - 4);
+      bg.setAttribute('width', bb.width + 12);
+      bg.setAttribute('height', bb.height + 8);
+
     }
 
 
@@ -182,7 +214,7 @@ window.Utils = (function(){
         cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const pt = ScreenToSVG(svgRoot, ev.clientX, ev.clientY);
-        const hitN = hitNode(pt, state.nodes, 16);
+        const hitN = hitNode(pt, state.nodes, NODE_HIT_RADIUS);
         const hitE = hitN ? null : hitEdge(pt, state.nodes, state.edges, 6);
 
         if (last.node === hitN && last.edge === hitE)
@@ -217,14 +249,21 @@ window.Utils = (function(){
     return {x:res.x, y:res.y};
   }
   const dist2 = (a,b)=> (a.x-b.x)**2 + (a.y-b.y)**2;
+
+  /* Node Hit Detection */
   function hitNode(pt, nodes, R){
     let best=null, bestD=1e9;
     for (const n of nodes){
       const d = Math.sqrt(dist2(pt, n));
-      if (d<=R && d<bestD){ best=n; bestD=d; }
+      if (d<=R && d<bestD){
+        best=n;
+        bestD=d;
+      }
     }
     return best;
   }
+
+
   function pointLineDist(p, a, b) {
     const A = p.x - a.x, B = p.y - a.y, C = b.x - a.x, D = b.y - a.y;
     const dot = A*C + B*D, len2 = C*C + D*D;
@@ -237,7 +276,7 @@ window.Utils = (function(){
       const A = byId(nodes, e.a), B = byId(nodes, e.b); if(!A||!B) continue;
       const d1 = Math.hypot(pt.x - A.x, pt.y - A.y);
       const d2 = Math.hypot(pt.x - B.x, pt.y - B.y);
-      if (d1<18 || d2<18) continue; // ignore near endpoints
+      if (d1<18 || d2<18) continue;
       if (pointLineDist(pt, A, B) < tol) return e;
     }
     return null;

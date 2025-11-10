@@ -34,9 +34,6 @@
       overflow: hidden;
     }
 
-    /* Grid background, it's wasn't supposed to pulsate */
-    /* It also doesn't loop correctly, fix it if you like, but it's a pain */
-
     body::before {
       content: "";
       position: fixed;
@@ -81,7 +78,6 @@
       transform: translateY(10px);
     }
 
-    /* no you go change the values individually */
     body::before { z-index: 0; }
     body::after  { z-index: 3; }
     main         { position: relative; z-index: 2; }
@@ -131,6 +127,20 @@
       border: none;
     }
 
+    .side-logo {
+      position: fixed;
+      top: 17vh;
+      width: 18em;
+      opacity: 0.85;
+      z-index: 4;
+      filter: drop-shadow(0 0 12px rgba(237, 237, 158, 0.7));
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .left-logo  { left: 5vw; width: 22em}
+    .right-logo { right: 7vw; }
+
     @keyframes fadeIn {
       to {
         opacity: 1;
@@ -141,6 +151,9 @@
   </style>
 </head>
 <body>
+
+<img src="project/FI.svg"   alt="FI Logo"   class="side-logo left-logo">
+<img src="project/Unam.svg" alt="UNAM Logo" class="side-logo right-logo">
 
 <main>
   <h1> Universidad Nacional Autónoma de México </h1>
